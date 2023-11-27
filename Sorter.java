@@ -13,7 +13,7 @@ public class Sorter {
         Scanner scanner = new Scanner(System.in);
 
         // Считываем данные из консоли
-        System.out.print("Введите параметры: ");  //"-srcFile=before_sort.csv -dstFile=after_sort.csv -header=1 -sortBy=14";
+        System.out.print("Введите параметры по примеру -srcFile=<path> -dstFile=<path> -header={0,1} -sortBy=<numner> : ");  //"-srcFile=before_sort.csv -dstFile=after_sort.csv -header=1 -sortBy=14";
         String inputLine = scanner.nextLine();
 
         // Разбиваем строку по пробелам
@@ -32,7 +32,12 @@ public class Sorter {
         
         // Читаем файл
         String[][] csvArray = readCSV(noSortFilePath);
-        
+
+        // Проверка что номер колонки для сортировки не больше чем число колонок в таблице
+        if (columForSort > csvArray.length) {
+            System.err.println("Число колонок в таблице меньше чем номер колонки указанный для сортировки");
+        }
+
         // Проверка на заголовок
         if (header.equals("1")) { // если заголовок есть
             String[] firstString = csvArray[0];
